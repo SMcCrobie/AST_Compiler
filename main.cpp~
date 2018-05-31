@@ -1,0 +1,42 @@
+//Main compiler page
+//created by Sean McCrobie
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+/*Data Types
+exp = num | (- exp) | (+ exp exp) | var | (let ([var exp]) exp)
+type idetifiers in INT form
+(1) = num
+(2) = negate
+(3) = ADD
+*/
+struct exp {};
+
+struct num: public exp {
+  int n;
+  int type;
+  num(int temp): type(1) {n = temp;} 
+  num operator=(const exp& temp) {this->n = temp.n;};
+
+struct neg: public exp {
+  int type;
+  int n;
+  neg(exp x): type(2) {n = -x;}
+};
+
+struct add: public exp {
+  int type;
+  int n;
+  add(exp x, exp y){x = x+y; n = x;}
+};
+
+int main () {
+  num x(5);
+  num y(10);
+  x = neg(x);
+  cout << x << endl; 
+  return 0;
+}
